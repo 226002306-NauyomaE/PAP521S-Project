@@ -119,6 +119,27 @@ void searchEmployeeById(void)
     }
     printf("Employee with ID %s not found.\n", searchId);
 }
+void searchEmployeeByName(void)
+{
+    char searchName[NAME_LEN];
+    printf("Enter Employee Name to search: ");
+    scanf("%49s", searchName);
+
+    for (int i = 0; i < employeeCount; i++)
+    {
+        if (strstr(empNames[i], searchName) != NULL)
+        {
+            double gross = calculateGross(empBasic[i], empHousing[i], empTransport[i]);
+            double tax = calculateTax(gross);
+            double net = calculateNet(gross, tax);
+            printf("Employee Found:\n");
+            printf("ID: %s, Name: %s, Department: %s, Position: %s, Salary: %.2f, Housing: %.2f, Transport: %.2f, Gross: %.2f, Tax: %.2f, Net: %.2f\n",
+                   empIds[i], empNames[i], empDepartments[i], empPositions[i], empBasic[i], empHousing[i], empTransport[i], gross, tax, net);
+            return;
+        }
+    }
+    printf("Employee with Name %s not found.\n", searchName);
+}
 int main(void)
 {
     addEmployee();
