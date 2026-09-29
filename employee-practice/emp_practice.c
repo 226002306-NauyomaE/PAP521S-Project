@@ -44,18 +44,38 @@ char empNames[MAX_EMPLOYEES][NAME_LEN] ;
     printf("Department: %s\n", empDepartments[employeeCount]);
     printf("Position: %s\n", empPositions[employeeCount]);
 
-    printf("Salary: " );
+    do
+{
+    printf("Basic salary: ");
     scanf("%lf", &empBasic[employeeCount]);
-    printf("Salary: %.2f\n", empBasic[employeeCount]);
 
-    printf("Housing: ");
+    if (empBasic[employeeCount] <= 0)
+    {
+        printf("Salary must be more than 0. Try again.\n");
+    }
+   } while (empBasic[employeeCount] <= 0);
+
+   do 
+   {
+    printf("Housing allowance: ");
     scanf("%lf", &empHousing[employeeCount]);
 
-    printf("Transport: ");
-    scanf("%lf", &empTransport[employeeCount]);
+    if (empHousing[employeeCount] < 0)
+    {
+        printf("Housing allowance cannot be negative. Try again.\n");
+    }
+   } while (empHousing[employeeCount] < 0);
+ 
+    do
+    { printf("Transport allowance: ");
+    scanf("%lf", &empTransport[employeeCount]); 
 
-    printf("Transport: %.2f\n", empTransport[employeeCount]);
-    printf("Housing: %.2f\n", empHousing[employeeCount]);
+    if (empTransport[employeeCount] < 0)
+    {
+        printf("Transport allowance cannot be negative. Try again.\n");
+    }
+
+    } while (empTransport[employeeCount] < 0);
 
     employeeCount++;
     printf("Employee Count: %d\n", employeeCount);
@@ -140,11 +160,41 @@ void searchEmployeeByName(void)
     }
     printf("Employee with Name %s not found.\n", searchName);
 }
+void displayByDepartment(void)
+{ char searchDept[DEPT_LEN];
+    printf("Enter Department to display: ");
+    scanf("%29s", searchDept);
+
+    int found = 0;
+    for (int i = 0; i < employeeCount; i++)
+    {
+        if (strcmp(empDepartments[i], searchDept) == 0)
+        {
+            double gross = calculateGross(empBasic[i], empHousing[i], empTransport[i]);
+            double tax = calculateTax(gross);
+            double net = calculateNet(gross, tax);
+            printf("ID: %s, Name: %s, Department: %s, Position: %s, Salary: %.2f, Housing: %.2f, Transport: %.2f, Gross: %.2f, Tax: %.2f, Net: %.2f\n",
+                   empIds[i], empNames[i], empDepartments[i], empPositions[i], empBasic[i], empHousing[i], empTransport[i], gross, tax, net);
+            found++;
+        }
+    }
+    if (!found)
+    {
+        printf("No employees found in Department %s.\n", searchDept);
+    }
+    else
+    {
+        printf("Total employees found in Department %s: %d\n", searchDept, found);
+    }
+
+}
 int main(void)
 {
     addEmployee();
     addEmployee();
     displayEmployees();
     searchEmployeeById();
+    searchEmployeeByName();
+    displayByDepartment();
     return 0;
 }
