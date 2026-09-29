@@ -66,6 +66,19 @@ char empNames[MAX_EMPLOYEES][NAME_LEN] ;
 {
     return basic + housing + transport;
 }
+double calculateTax(double gross)
+{
+    if (gross <= 10000)
+        return 0; // No tax for income up to 10,000
+    else if (gross <= 30000)
+        return gross * 0.15; // 15% tax for income between 10,001 and 30,000
+    else
+        return gross * 0.25; // 25% tax for income above 30,000
+}
+double calculateNet(double gross, double tax)
+{
+    return gross - tax;
+}
     
 
 void displayEmployees(void)
@@ -78,8 +91,11 @@ void displayEmployees(void)
     printf("Employee List:\n");
     for (int i = 0; i < employeeCount; i++)
     {
-        printf("ID: %s, Name: %s, Department: %s, Position: %s, Salary: %.2f, Housing: %.2f, Transport: %.2f, Gross: %.2f\n",
-               empIds[i], empNames[i], empDepartments[i], empPositions[i], empBasic[i], empHousing[i], empTransport[i], calculateGross(empBasic[i], empHousing[i], empTransport[i]));
+        double gross = calculateGross(empBasic[i], empHousing[i], empTransport[i]);
+        double tax = calculateTax(gross);
+        double net = calculateNet(gross, tax);
+        printf("ID: %s, Name: %s, Department: %s, Position: %s, Salary: %.2f, Housing: %.2f, Transport: %.2f, Gross: %.2f, Tax: %.2f, Net: %.2f\n",
+               empIds[i], empNames[i], empDepartments[i], empPositions[i], empBasic[i], empHousing[i], empTransport[i], gross, tax, net);
     }
 }
 int main(void)
