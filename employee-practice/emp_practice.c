@@ -61,9 +61,14 @@ char empNames[MAX_EMPLOYEES][NAME_LEN] ;
     printf("Employee Count: %d\n", employeeCount);
 
 }
+
 void displayEmployees(void)
 {
-
+    if (employeeCount == 0)
+    {
+        printf("No employees to display.\n");
+        return;
+    }
     printf("Employee List:\n");
     for (int i = 0; i < employeeCount; i++)
     {
