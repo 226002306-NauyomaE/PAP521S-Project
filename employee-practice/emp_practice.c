@@ -255,7 +255,7 @@ void displayEmployeeReport(void)
        total += calculateGross(empBasic[i], empHousing[i], empTransport[i]);
     }
     average = total / employeeCount;
-    printf("\n==== Employee Report ====\n");
+    printf("\nEmployee Report\n");
     printf("Total Employees: %d\n", employeeCount);
     printf("Total Gross Pay: %.2f\n", total);
     printf("Average Gross Pay: %.2f\n", average);
@@ -273,14 +273,56 @@ void displayEmployeeReport(void)
     printf("Highest Salary: %s (ID: %s)\n", empNames[highest], empIds[highest]);
     printf("Lowest Salary: %s (ID: %s)\n", empNames[lowest], empIds[lowest]);
 }
+void employeeMenu(void)
+{
+    int choice;
+    do
+    {
+        printf("\n Employee Management \n");
+        printf("1. Add Employee\n");
+        printf("2. Display All Employees\n");
+        printf("3. Search Employee by ID\n");
+        printf("4. Search Employee by Name\n");
+        printf("5. Display Employees by Department\n");
+        printf("6. Display Employee Report\n");
+        printf("7. Exit\n");
+        printf("Enter your choice: ");
+       if (scanf("%d", &choice) != 1)
+        {
+          while (getchar() != '\n'); // Clear invalid input
+          choice = -1; // Set choice to an invalid value
+        }
+
+        switch (choice)
+        {
+        case 1:
+            addEmployee();
+            break;
+        case 2:
+            displayEmployees();
+            break;
+        case 3:
+            searchEmployeeById();
+            break;
+        case 4:
+            searchEmployeeByName();
+            break;
+        case 5:
+            displayByDepartment();
+            break;
+        case 6:
+            displayEmployeeReport();
+            break;
+        case 7:
+            printf("Exiting the program.\n");
+            break;
+        default:
+            printf("Invalid choice. Please try again.\n");
+        }
+    } while (choice != 7);
+}
 int main(void)
 {
-    addEmployee();
-    addEmployee();
-    displayEmployees();
-    searchEmployeeById();
-    searchEmployeeByName();
-    displayByDepartment();
-    displayEmployeeReport();
+    employeeMenu();
     return 0;
 }
