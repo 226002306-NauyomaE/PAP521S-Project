@@ -237,6 +237,42 @@ void displayByDepartment(void)
         printf("Total employees found in Department %s: %d\n", searchDept, found);
     }
 }
+void displayEmployeeReport(void)
+{
+    double total=0;
+    double average;
+    int highest = 0;
+    int lowest = 0;
+
+    if (employeeCount == 0)
+    {
+        printf("No employees to display.\n");
+        return;
+    }
+    printf("Employee Report:\n");
+    for (int i = 0; i < employeeCount; i++)
+    {
+       total += calculateGross(empBasic[i], empHousing[i], empTransport[i]);
+    }
+    average = total / employeeCount;
+    printf("\n==== Employee Report ====\n");
+    printf("Total Employees: %d\n", employeeCount);
+    printf("Total Gross Pay: %.2f\n", total);
+    printf("Average Gross Pay: %.2f\n", average);
+    for (int i = 1; i < employeeCount; i++)
+    {
+        if (calculateGross(empBasic[i], empHousing[i], empTransport[i]) > calculateGross(empBasic[highest], empHousing[highest], empTransport[highest]))
+        {
+            highest = i;
+        }
+        if (calculateGross(empBasic[i], empHousing[i], empTransport[i]) < calculateGross(empBasic[lowest], empHousing[lowest], empTransport[lowest]))
+        {
+            lowest = i;
+        }
+    }
+    printf("Highest Salary: %s (ID: %s)\n", empNames[highest], empIds[highest]);
+    printf("Lowest Salary: %s (ID: %s)\n", empNames[lowest], empIds[lowest]);
+}
 int main(void)
 {
     addEmployee();
@@ -245,5 +281,6 @@ int main(void)
     searchEmployeeById();
     searchEmployeeByName();
     displayByDepartment();
+    displayEmployeeReport();
     return 0;
 }
