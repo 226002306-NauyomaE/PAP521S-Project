@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 #define MAX_EMPLOYEES 50
 #define ID_LEN 10
@@ -8,16 +9,44 @@
 #define POS_LEN 30
 char empIds[MAX_EMPLOYEES][ID_LEN];
 double empBasic[MAX_EMPLOYEES];
-char empNames[MAX_EMPLOYEES][NAME_LEN] ;
-    char empDepartments[MAX_EMPLOYEES][DEPT_LEN];
-    char empPositions[MAX_EMPLOYEES][POS_LEN];
-    double empHousing[MAX_EMPLOYEES];
-    double empTransport[MAX_EMPLOYEES];
-    int employeeCount = 0;
-    void addEmployee(void)
+char empNames[MAX_EMPLOYEES][NAME_LEN];
+char empDepartments[MAX_EMPLOYEES][DEPT_LEN];
+char empPositions[MAX_EMPLOYEES][POS_LEN];
+double empHousing[MAX_EMPLOYEES];
+double empTransport[MAX_EMPLOYEES];
+int employeeCount = 0;
+
+void toUpperCase(char text[])
+{
+    for (int i = 0; text[i] != '\0'; i++)
     {
-    printf("Employee ID: ");
-    scanf("%9s", empIds[employeeCount]);
+        text[i] = toupper(text[i]);
+    }
+}
+int idExists(char id[])
+{
+    for (int i = 0; i < employeeCount; i++)
+    {
+        if (strcmp(empIds[i], id) == 0)
+        {
+            return 1; // ID exists
+        }
+    }
+    return 0; // ID does not exist
+}
+void addEmployee(void)
+{
+    do
+    {
+        printf("Employee ID: ");
+        scanf("%9s", empIds[employeeCount]);
+        toUpperCase(empIds[employeeCount]);
+
+        if (idExists(empIds[employeeCount]))
+        {
+            printf("That ID already exists. Try another.\n");
+        }
+    } while (idExists(empIds[employeeCount]));
 
     printf("You entered: %s\n", empIds[employeeCount]);
 
@@ -46,59 +75,62 @@ char empNames[MAX_EMPLOYEES][NAME_LEN] ;
 
     int ok;
 
-do
-{
-    printf("Basic salary: ");
-    ok = scanf("%lf", &empBasic[employeeCount]);
-
-    if (ok != 1)
-    {
-        printf("Please enter a number.\n");
-        while (getchar() != '\n');
-    }
-    else if (empBasic[employeeCount] <= 0)
-    {
-        printf("Salary must be more than 0. Try again.\n");
-    }
-} while (ok != 1 || empBasic[employeeCount] <= 0);
-   do 
-   {
-    printf("Housing allowance: ");
-    ok = scanf("%lf", &empHousing[employeeCount]);
-
-    if (ok != 1)
-    {
-        printf("Please enter a number.\n");
-        while (getchar() != '\n');
-    }
-    else if (empHousing[employeeCount] < 0)
-    {
-        printf("Housing allowance cannot be negative. Try again.\n");
-    }
-   } while (ok != 1 || empHousing[employeeCount] < 0);
- 
     do
-    { printf("Transport allowance: ");
-    ok = scanf("%lf", &empTransport[employeeCount]);
+    {
+        printf("Basic salary: ");
+        ok = scanf("%lf", &empBasic[employeeCount]);
 
-    if (ok != 1)
+        if (ok != 1)
+        {
+            printf("Please enter a number.\n");
+            while (getchar() != '\n')
+                ;
+        }
+        else if (empBasic[employeeCount] <= 0)
+        {
+            printf("Salary must be more than 0. Try again.\n");
+        }
+    } while (ok != 1 || empBasic[employeeCount] <= 0);
+    do
     {
-        printf("Please enter a number.\n");
-        while (getchar() != '\n');
-    }
-    else if (empTransport[employeeCount] < 0)
+        printf("Housing allowance: ");
+        ok = scanf("%lf", &empHousing[employeeCount]);
+
+        if (ok != 1)
+        {
+            printf("Please enter a number.\n");
+            while (getchar() != '\n')
+                ;
+        }
+        else if (empHousing[employeeCount] < 0)
+        {
+            printf("Housing allowance cannot be negative. Try again.\n");
+        }
+    } while (ok != 1 || empHousing[employeeCount] < 0);
+
+    do
     {
-        printf("Transport allowance cannot be negative. Try again.\n");
-    }
+        printf("Transport allowance: ");
+        ok = scanf("%lf", &empTransport[employeeCount]);
+
+        if (ok != 1)
+        {
+            printf("Please enter a number.\n");
+            while (getchar() != '\n')
+                ;
+        }
+        else if (empTransport[employeeCount] < 0)
+        {
+            printf("Transport allowance cannot be negative. Try again.\n");
+        }
 
     } while (ok != 1 || empTransport[employeeCount] < 0);
 
     employeeCount++;
     printf("Employee Count: %d\n", employeeCount);
-
 }
 
-    double calculateGross(double basic, double housing, double transport)
+double calculateGross(double basic, double housing, double transport)
 {
     return basic + housing + transport;
 }
@@ -115,7 +147,6 @@ double calculateNet(double gross, double tax)
 {
     return gross - tax;
 }
-    
 
 void displayEmployees(void)
 {
@@ -139,7 +170,7 @@ void searchEmployeeById(void)
     char searchId[ID_LEN];
     printf("Enter Employee ID to search: ");
     scanf("%9s", searchId);
-
+    toUpperCase(searchId);
     for (int i = 0; i < employeeCount; i++)
     {
         if (strcmp(empIds[i], searchId) == 0)
@@ -160,6 +191,7 @@ void searchEmployeeByName(void)
     char searchName[NAME_LEN];
     printf("Enter Employee Name to search: ");
     scanf("%49s", searchName);
+    toUpperCase(searchName);
 
     for (int i = 0; i < employeeCount; i++)
     {
@@ -177,9 +209,11 @@ void searchEmployeeByName(void)
     printf("Employee with Name %s not found.\n", searchName);
 }
 void displayByDepartment(void)
-{ char searchDept[DEPT_LEN];
+{
+    char searchDept[DEPT_LEN];
     printf("Enter Department to display: ");
     scanf("%29s", searchDept);
+    toUpperCase(searchDept);
 
     int found = 0;
     for (int i = 0; i < employeeCount; i++)
@@ -202,7 +236,6 @@ void displayByDepartment(void)
     {
         printf("Total employees found in Department %s: %d\n", searchDept, found);
     }
-
 }
 int main(void)
 {
