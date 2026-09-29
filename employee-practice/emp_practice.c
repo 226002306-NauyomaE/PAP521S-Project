@@ -44,38 +44,54 @@ char empNames[MAX_EMPLOYEES][NAME_LEN] ;
     printf("Department: %s\n", empDepartments[employeeCount]);
     printf("Position: %s\n", empPositions[employeeCount]);
 
-    do
+    int ok;
+
+do
 {
     printf("Basic salary: ");
-    scanf("%lf", &empBasic[employeeCount]);
+    ok = scanf("%lf", &empBasic[employeeCount]);
 
-    if (empBasic[employeeCount] <= 0)
+    if (ok != 1)
+    {
+        printf("Please enter a number.\n");
+        while (getchar() != '\n');
+    }
+    else if (empBasic[employeeCount] <= 0)
     {
         printf("Salary must be more than 0. Try again.\n");
     }
-   } while (empBasic[employeeCount] <= 0);
-
+} while (ok != 1 || empBasic[employeeCount] <= 0);
    do 
    {
     printf("Housing allowance: ");
-    scanf("%lf", &empHousing[employeeCount]);
+    ok = scanf("%lf", &empHousing[employeeCount]);
 
-    if (empHousing[employeeCount] < 0)
+    if (ok != 1)
+    {
+        printf("Please enter a number.\n");
+        while (getchar() != '\n');
+    }
+    else if (empHousing[employeeCount] < 0)
     {
         printf("Housing allowance cannot be negative. Try again.\n");
     }
-   } while (empHousing[employeeCount] < 0);
+   } while (ok != 1 || empHousing[employeeCount] < 0);
  
     do
     { printf("Transport allowance: ");
-    scanf("%lf", &empTransport[employeeCount]); 
+    ok = scanf("%lf", &empTransport[employeeCount]);
 
-    if (empTransport[employeeCount] < 0)
+    if (ok != 1)
+    {
+        printf("Please enter a number.\n");
+        while (getchar() != '\n');
+    }
+    else if (empTransport[employeeCount] < 0)
     {
         printf("Transport allowance cannot be negative. Try again.\n");
     }
 
-    } while (empTransport[employeeCount] < 0);
+    } while (ok != 1 || empTransport[employeeCount] < 0);
 
     employeeCount++;
     printf("Employee Count: %d\n", employeeCount);
