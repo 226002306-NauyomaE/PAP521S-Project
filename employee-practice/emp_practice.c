@@ -61,10 +61,20 @@ char empNames[MAX_EMPLOYEES][NAME_LEN] ;
     printf("Employee Count: %d\n", employeeCount);
 
 }
+void displayEmployees(void)
+{
 
+    printf("Employee List:\n");
+    for (int i = 0; i < employeeCount; i++)
+    {
+        printf("ID: %s, Name: %s, Department: %s, Position: %s, Salary: %.2f, Housing: %.2f, Transport: %.2f\n",
+               empIds[i], empNames[i], empDepartments[i], empPositions[i], empBasic[i], empHousing[i], empTransport[i]);
+    }
+}
 int main(void)
 {
     addEmployee();
     addEmployee();
+    displayEmployees();
     return 0;
 }
