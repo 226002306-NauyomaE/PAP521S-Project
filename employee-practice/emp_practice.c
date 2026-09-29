@@ -62,6 +62,12 @@ char empNames[MAX_EMPLOYEES][NAME_LEN] ;
 
 }
 
+    double calculateGross(double basic, double housing, double transport)
+{
+    return basic + housing + transport;
+}
+    
+
 void displayEmployees(void)
 {
     if (employeeCount == 0)
@@ -72,8 +78,8 @@ void displayEmployees(void)
     printf("Employee List:\n");
     for (int i = 0; i < employeeCount; i++)
     {
-        printf("ID: %s, Name: %s, Department: %s, Position: %s, Salary: %.2f, Housing: %.2f, Transport: %.2f\n",
-               empIds[i], empNames[i], empDepartments[i], empPositions[i], empBasic[i], empHousing[i], empTransport[i]);
+        printf("ID: %s, Name: %s, Department: %s, Position: %s, Salary: %.2f, Housing: %.2f, Transport: %.2f, Gross: %.2f\n",
+               empIds[i], empNames[i], empDepartments[i], empPositions[i], empBasic[i], empHousing[i], empTransport[i], calculateGross(empBasic[i], empHousing[i], empTransport[i]));
     }
 }
 int main(void)
