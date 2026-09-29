@@ -14,12 +14,12 @@ char empNames[MAX_EMPLOYEES][NAME_LEN] ;
     double empHousing[MAX_EMPLOYEES];
     double empTransport[MAX_EMPLOYEES];
     int employeeCount = 0;
-int main(void)
-{
+    void addEmployee(void)
+    {
     printf("Employee ID: ");
-    scanf("%9s", empIds[0]);
+    scanf("%9s", empIds[employeeCount]);
 
-    printf("You entered: %s\n", empIds[0]);
+    printf("You entered: %s\n", empIds[employeeCount]);
 
     char firstName[25];
     char surname[25];
@@ -30,33 +30,41 @@ int main(void)
     printf("Surname: ");
     scanf("%24s", surname);
 
-    strcpy(empNames[0], firstName);
-    strcat(empNames[0], " ");
-    strcat(empNames[0], surname);
+    strcpy(empNames[employeeCount], firstName);
+    strcat(empNames[employeeCount], " ");
+    strcat(empNames[employeeCount], surname);
 
-    printf("Full Name: %s\n", empNames[0]);
+    printf("Full Name: %s\n", empNames[employeeCount]);
     printf("Department: ");
-    scanf("%29s", empDepartments[0]);
+    scanf("%29s", empDepartments[employeeCount]);
 
     printf("Position: ");
-    scanf("%29s", empPositions[0]);
+    scanf("%29s", empPositions[employeeCount]);
 
-    printf("Department: %s\n", empDepartments[0]);
-    printf("Position: %s\n", empPositions[0]);
+    printf("Department: %s\n", empDepartments[employeeCount]);
+    printf("Position: %s\n", empPositions[employeeCount]);
 
     printf("Salary: " );
-    scanf("%lf", &empBasic[0]);
-    printf("Salary: %.2f\n", empBasic[0]);
+    scanf("%lf", &empBasic[employeeCount]);
+    printf("Salary: %.2f\n", empBasic[employeeCount]);
 
     printf("Housing: ");
-    scanf("%lf", &empHousing[0]);
+    scanf("%lf", &empHousing[employeeCount]);
 
     printf("Transport: ");
-    scanf("%lf", &empTransport[0]);
+    scanf("%lf", &empTransport[employeeCount]);
 
-    printf("Transport: %.2f\n", empTransport[0]);
-    printf("Housing: %.2f\n", empHousing[0]);
+    printf("Transport: %.2f\n", empTransport[employeeCount]);
+    printf("Housing: %.2f\n", empHousing[employeeCount]);
 
+    employeeCount++;
+    printf("Employee Count: %d\n", employeeCount);
 
+}
+
+int main(void)
+{
+    addEmployee();
+    addEmployee();
     return 0;
 }
