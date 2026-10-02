@@ -286,7 +286,7 @@ void employeeMenu(void)
         printf("4. Search Employee by Name\n");
         printf("5. Display Employees by Department\n");
         printf("6. Display Employee Report\n");
-        printf("7. Exit\n");
+        printf("7. Return to Main Menu\n");
         printf("Enter your choice: ");
        if (scanf("%d", &choice) != 1)
         {
@@ -315,7 +315,7 @@ void employeeMenu(void)
             displayEmployeeReport();
             break;
         case 7:
-            printf("Exiting the program.\n");
+            printf("Returning to Main Menu.\n");
             break;
         default:
             printf("Invalid choice. Please try again.\n");

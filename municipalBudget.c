@@ -91,6 +91,8 @@ void enterBudget()
 
 void displayBudget()
 {
+    totalBudget = 0;
+    totalExpenditure = 0;
     if (departmentCount == 0)
     {
         printf("\nNo budget information available.\n");
