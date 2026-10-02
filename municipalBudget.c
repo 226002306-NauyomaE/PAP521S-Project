@@ -1,5 +1,7 @@
+/* municipalBudget.c */
 #include <stdio.h>
 #include <string.h>
+#include "municipalBudget.h"
 
 #define MAX_DEPARTMENTS 10
 char  departmentNames[MAX_DEPARTMENTS][50];
