@@ -3,7 +3,9 @@
 
 #include "suppliers.h"
 
-void displayMenu();
-int enterChoice(Supplier supplierList[], int *supplierCount);
+void displayMenu(void);
+int enterChoice(void);
+void processChoice(int choice, Supplier suppliers[], int *supplierCount);
+void runMenu(void);
 
 #endif

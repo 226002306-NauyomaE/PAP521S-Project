@@ -17,7 +17,7 @@ void displayMenu() {
     printf("6. Exit\n");
 }
 
-int enterChoice(Supplier supplierList[], int *supplierCount) {
+int enterChoice(void) {
     int choice;
 
     while(1) {
@@ -31,27 +31,41 @@ int enterChoice(Supplier supplierList[], int *supplierCount) {
             printf("\n[VALIDATION ERROR] '%d' is an invalid choice! Please enter a number between 1 and 6.\n", choice);
             continue;
         }
-        switch(choice) {
-            case 1:
-                employeeMenu();
-                break;
-            case 2:
-                budgetMenu();
-                break;
-            case 3:
-                supplierMenu(supplierList, supplierCount);
-                break;
-            break;
-            case 4:
-                printf("\n[INFO] Asset Management selected.\n");
-                break;
-            case 5:
-                printf("\n[INFO] Reports selected.\n");
-                break;
-            case 6:
-                printf("\nExiting Municipal Financial Management System.\n");
-                break;
-        }
         return choice;
     }
+}
+void processChoice(int choice, Supplier suppliers[], int *supplierCount) {
+    switch (choice) {
+        case 1:
+            employeeMenu();
+            break;
+        case 2:
+            budgetMenu();
+            break;
+        case 3:
+            supplierMenu(suppliers, supplierCount);
+            break;
+        case 4:
+            printf("\n[INFO] Asset Management feature is under development. Please check back later.\n");
+            break;
+        case 5:
+            displayReportsMenu();
+            break;
+        case 6:
+            printf("\nThank you for using the Municipal Financial Management System. Goodbye!\n");
+            break;
+        default:
+            printf("\n[ERROR] Invalid choice! Please try again.\n");
+    }
+}
+void runMenu(void) {
+    int choice;
+    Supplier suppliers[MAX_SUPPLIERS];
+    int supplierCount = 0;
+
+    do {
+        displayMenu();
+        choice = enterChoice();
+        
+    } while (choice != 6);
 }

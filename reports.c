@@ -8,43 +8,39 @@
 // ============================================================
 
 // Employee Module Databases
-int empCount = 0; 
-char empIDs[50][10] = {0};
-char empNames[50][50] = {0};
-char empDepts[50][30] = {0};
-double basicSalaries[50] = {0};
-double housingAllowances[50] = {0};
-double transportAllowances[50] = {0};
+extern int employeeCount; 
+extern char empIDs[50][10];
+extern char empNames[50][50];
+extern char empDepts[50][30];
+extern double basicSalaries[50];
+extern double housingAllowances[50];
+extern double transportAllowances[50];
 
 // Budget Module Databases
-int deptCount = 0;
-char deptNames[50][30] = {0};
-double allocatedBudgets[50] = {0};
-double expenditures[50] = {0};
-
-// Supplier Module Databases
-int supplierCount = 0;
-char supplierIDs[50][10] = {0};
-char supplierNames[50][50] = {0};
-char supplierEmails[50][50] = {0};
-char supplierPhone[50][15] = {0};
+extern int departmentCount;
+extern char departmentNames[50][30];
+extern float allocatedBudgets[10];
+extern float expenditures[10];
 
 // Asset Module Databases
-int assetCount = 0;
-char assetIDs[50][10] = {0};
-char assetNames[50][50] = {0};
-char assetTypes[50][20] = {0};
-double assetValues[50] = {0};
+extern int assetCount;
+extern char assetIDs[50][10];
+extern char assetNames[50][50];
+extern char assetTypes[50][20];
+extern double assetValues[50];
 
 
 // ==========================================
 //  REPORTS SWITCH DECISION CONTROLLER
 // ==========================================
-int main() {
-    int choice;
-    
-    do {
-        DisplayReportsMenu();
+
+void displayReportsMenu(const Supplier suppliers[], int supplierCount)
+{
+        int choice;
+        
+        do
+        {
+        displayReportsOptions();
         printf("Enter your choice: ");
         scanf("%d", &choice);
         
@@ -58,7 +54,7 @@ int main() {
             break;
 
             case 3:
-            generateSupplierReport();
+            generateSupplierReport(suppliers, supplierCount);
             break;
 
             case 4: 
@@ -71,20 +67,16 @@ int main() {
             default: 
             printf("\n[VALIDATION ERROR] '%d' is an invalid choice! Please enter a number between 1 and 5.\n", choice);
             // Clear input buffer in case a letter was typed to prevent infinite loops
-            while (getchar() != '\n'); 
-            break;
-
-        }
+            while (getchar() != '\n');
+                break;
+            }  
     } while(choice != 5);
-    
-    return 0;
-}
-
+}  
 
 // ==========================================
 //  REPORTS MENU
 // ==========================================
-void DisplayReportsMenu() {
+void displayReportsOptions() {
     printf("\n========================================\n");
     printf(" MUNICIPAL FINANCIAL REPORTS SYSTEM  \n");
     printf("========================================\n");
@@ -100,7 +92,7 @@ void DisplayReportsMenu() {
 // --- Report 1: Employee Statistics Calculations ---
 void generateEmployeeReport() {
     printf("\n--- MUNICIPAL EMPLOYEE REPORT ---\n");
-    if (empCount == 0) {
+    if (employeeCount == 0) {
         printf("No employee records found.\n");
         return;
     }
@@ -109,7 +101,7 @@ void generateEmployeeReport() {
     double highestSalary = 0;
     double lowestSalary = 9999999999.0;
 
-    for (int i = 0; i < empCount; i++) {
+    for (int i = 0; i < employeeCount; i++) {
         // Gross Salary Calculation = Basic + Housing + Transport
         double gross = basicSalaries[i] + housingAllowances[i] + transportAllowances[i];
         totalSalary += gross;
@@ -118,22 +110,22 @@ void generateEmployeeReport() {
         if (gross < lowestSalary) lowestSalary = gross;
     }
 
-        if (empCount <= 0) {
+        if (employeeCount <= 0) {
         printf("\n[VALIDATION ERROR] Cannot calculate statistics. No employee records found.\n");
         return;
     }
 
-        if (empCount > 50) {
+        if (employeeCount > 50) {
         printf("\n[CRITICAL ERROR] Data array overflow! Restricting report view to the first 50 entries.\n");
-        empCount = 50; 
+        employeeCount = 50; 
     }
 
 
     if (lowestSalary == 9999999999.0) lowestSalary = 0; // Handle case with no employees
 
 
-    printf("Total Employees: %d\n", empCount);
-    printf("Average Salary: N$%.2f\n", totalSalary / empCount);
+    printf("Total Employees: %d\n", employeeCount);
+    printf("Average Salary: N$%.2f\n", totalSalary / employeeCount);
     printf("Highest Salary: N$%.2f\n", highestSalary);
     printf("Lowest Salary:  N$%.2f\n", lowestSalary);
 }
@@ -143,14 +135,14 @@ void generateEmployeeReport() {
 // --- Report 2: Budget Summaries & Deficit Detection ---
 void generateBudgetReport() {
     printf("\n--- MUNICIPAL BUDGET REPORT ---\n");
-    if (deptCount == 0) {
+    if (departmentCount == 0) {
         printf("No departmental budget records found.\n");
         return;
     }
 
     double totalAllocated = 0, totalExpenditure = 0;
 
-    for (int i = 0; i < deptCount; i++) {
+    for (int i = 0; i < departmentCount; i++) {
         totalAllocated += allocatedBudgets[i];
         totalExpenditure += expenditures[i];
     }
@@ -161,9 +153,9 @@ void generateBudgetReport() {
 
     printf("\nDepartments Exceeding Budget:\n");
     int deficitFound = 0;
-    for (int i = 0; i < deptCount; i++) {
+    for (int i = 0; i < departmentCount; i++) {
         if (expenditures[i] > allocatedBudgets[i]) {
-            printf("- %-12s (Budget exceeded by: N$%.2f)\n", deptNames[i], expenditures[i] - allocatedBudgets[i]);
+            printf("- %-12s (Budget exceeded by: N$%.2f)\n", departmentNames[i], expenditures[i] - allocatedBudgets[i]);
             deficitFound = 1;
         }
     }
@@ -175,7 +167,7 @@ void generateBudgetReport() {
 
 
 // --- Report 3: Supplier Logs ---
-void generateSupplierReport() {
+void generateSupplierReport(const Supplier suppliers[], int supplierCount) {
     printf("\n--- REGISTERED SUPPLIERS REPORT ---\n");
     if (supplierCount == 0) {
         printf("No suppliers registered.\n");
@@ -184,7 +176,7 @@ void generateSupplierReport() {
     printf("%-10s %-20s %-25s %-20s\n", "ID", "Supplier Name", "Email Address", "Phone Number");
     printf("----------------------------------------------------------------------------------------\n");
     for (int i = 0; i < supplierCount; i++) {
-        printf("%-10s %-20s %-25s %-20s\n", supplierIDs[i], supplierNames[i], supplierEmails[i], supplierPhone[i]);
+        printf("%-10s %-20s %-25s %-20s\n", suppliers[i].supplierID, suppliers[i].name, suppliers[i].email, suppliers[i].phone);
     }
 }
 

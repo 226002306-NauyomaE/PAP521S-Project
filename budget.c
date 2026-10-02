@@ -1,7 +1,7 @@
 /* municipalBudget.c */
 #include <stdio.h>
 #include <string.h>
-#include "municipalBudget.h"
+#include "budget.h"
 
 #define MAX_DEPARTMENTS 10
 char  departmentNames[MAX_DEPARTMENTS][50];
@@ -22,8 +22,9 @@ void displayBudget();
 void identifyOverBudget();
 
 
-void budgetMenu()
+void budgetMenu(void)
 {
+ do {
     printf("\n==============================================\n");
     printf("     MUNICIPAL BUDGET MANAGEMENT SYSTEM\n");
     printf("===============================================\n");
@@ -33,14 +34,35 @@ void budgetMenu()
     printf("4. Exit\n");
     printf("Enter choice: ");
     scanf("%d", &choice);
+
+    switch (choice)
+    {
+        case 1:
+            enterBudget();
+            break;
+
+        case 2:
+            displayBudget();
+            break;
+
+        case 3:
+            identifyOverBudget();
+            break;
+
+        case 4:
+            printf("\nThank you for using the Budget Management System.\n");
+            break;
+
+        default:
+            printf("\nInvalid choice. Please try again.\n");
+    }
+} while (choice != 4);
 }
 
 float calculateBudget(float allocated, float expenditure)
 {
     return allocated - expenditure;
 }
-
-
 void enterBudget()
 {
     int i = departmentCount;
@@ -148,34 +170,4 @@ void identifyOverBudget()
 
     printf("\n=====================================\n");
 }
-int main()
-{
-do {
-    {
-        displayMenu();
 
-        switch (choice)
-        {
-            case 1:
-                enterBudget();
-                break;
-
-            case 2:
-                displayBudget();
-                break;
-
-            case 3:
-                identifyOverBudget();
-                break;
-
-            case 4:
-                printf("\nThank you for using the Budget Management System. Have a nice day.\n");
-                break;
-
-            default:
-                printf("\nInvalid choice. Please try again.\n");
-    }
-    }
-} while (choice !=4);
-    return 0;
-}
