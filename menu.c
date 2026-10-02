@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include "menu.h"
+#include "employees.h"
+#include "budget.h"
+#include "suppliers.h"
+#include "reports.h"
 
 void displayMenu() {
     printf("\n==============================================\n");
@@ -13,7 +17,7 @@ void displayMenu() {
     printf("6. Exit\n");
 }
 
-int enterChoice() {
+int enterChoice(Supplier supplierList[], int *supplierCount) {
     int choice;
 
     while(1) {
@@ -29,14 +33,15 @@ int enterChoice() {
         }
         switch(choice) {
             case 1:
-                printf("\n[INFO] Employee Management selected.\n");
+                employeeMenu();
                 break;
             case 2:
-                printf("\n[INFO] Budget Management selected.\n");
+                budgetMenu();
                 break;
             case 3:
-                printf("\n[INFO] Supplier Management selected.\n");
+                supplierMenu(supplierList, supplierCount);
                 break;
+            break;
             case 4:
                 printf("\n[INFO] Asset Management selected.\n");
                 break;
