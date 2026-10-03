@@ -49,7 +49,7 @@ void processChoice(int choice, Supplier suppliers[], int *supplierCount) {
             printf("\n[INFO] Asset Management feature is under development. Please check back later.\n");
             break;
         case 5:
-            displayReportsMenu();
+            displayReportsMenu(suppliers, supplierCount);
             break;
         case 6:
             printf("\nThank you for using the Municipal Financial Management System. Goodbye!\n");

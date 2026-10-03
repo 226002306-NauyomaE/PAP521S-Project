@@ -9,16 +9,16 @@
 
 // Employee Module Databases
 extern int employeeCount; 
-extern char empIDs[50][10];
+extern char empIds[50][10];
 extern char empNames[50][50];
-extern char empDepts[50][30];
-extern double basicSalaries[50];
-extern double housingAllowances[50];
-extern double transportAllowances[50];
+extern char empDepartments[50][30];
+extern double empBasic[50];
+extern double empHousing[50];
+extern double empTransport[50];
 
 // Budget Module Databases
 extern int departmentCount;
-extern char departmentNames[50][30];
+extern char departmentNames[10][50];
 extern float allocatedBudgets[10];
 extern float expenditures[10];
 
@@ -103,7 +103,7 @@ void generateEmployeeReport() {
 
     for (int i = 0; i < employeeCount; i++) {
         // Gross Salary Calculation = Basic + Housing + Transport
-        double gross = basicSalaries[i] + housingAllowances[i] + transportAllowances[i];
+        double gross = empBasic[i] + empHousing[i] + empTransport[i];
         totalSalary += gross;
 
         if (gross > highestSalary) highestSalary = gross;
