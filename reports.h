@@ -2,6 +2,7 @@
 #define REPORTS_H
 
 #include "suppliers.h"
+#include "assets.h"
 
 // Employee Data
 extern int employeeCount;
@@ -14,26 +15,18 @@ extern double transportAllowances[50];
 
 // Budget Data
 extern int departmentCount;
-extern char departmentNames[50][30];
+extern char departmentNames[10][50];
 extern float allocatedBudgets[10];
 extern float expenditures[10];
-
-// Asset Data
-extern int assetCount;
-extern char assetIDs[50][10];
-extern char assetNames[50][50];
-extern double assetValues[50];
-extern char assetTypes[50][20];
-
 
 // ==========================================
 //  REPORTS FUNCTIONS DECLARATIONS
 // ==========================================
-void displayReportsMenu(const Supplier suppliers[], int supplierCount);
+void displayReportsMenu(const Supplier suppliers[], int supplierCount, Asset assets[], int assetCount);
 void displayReportsOptions();
 void generateEmployeeReport();
 void generateBudgetReport();
 void generateSupplierReport(const Supplier suppliers[], int supplierCount);
-void generateAssetReport();
+void generateAssetReport(const Asset assets[], int assetCount);
 
 #endif     //REPORTS_H

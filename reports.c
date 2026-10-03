@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include "assets.h"
 #include "reports.h"
-
 
 // ============================================================
 // REPORTS STRUCTURAL DATABASE ARRAYS (for storage of records)
@@ -22,19 +22,11 @@ extern char departmentNames[10][50];
 extern float allocatedBudgets[10];
 extern float expenditures[10];
 
-// Asset Module Databases
-extern int assetCount;
-extern char assetIDs[50][10];
-extern char assetNames[50][50];
-extern char assetTypes[50][20];
-extern double assetValues[50];
-
-
 // ==========================================
 //  REPORTS SWITCH DECISION CONTROLLER
 // ==========================================
 
-void displayReportsMenu(const Supplier suppliers[], int supplierCount)
+void displayReportsMenu(const Supplier suppliers[], int supplierCount, Asset assets[], int assetCount)
 {
         int choice;
         
@@ -58,7 +50,7 @@ void displayReportsMenu(const Supplier suppliers[], int supplierCount)
             break;
 
             case 4: 
-            generateAssetReport();
+            generateAssetReport(assets, assetCount);
             break;
 
             case 5: printf("\nExiting Municipal Report System. Goodbye!\n"); 
@@ -183,7 +175,7 @@ void generateSupplierReport(const Supplier suppliers[], int supplierCount) {
 
 
 // --- Report 4: Asset Tracking Logs ---
-void generateAssetReport() {
+void generateAssetReport(const Asset assets[], int assetCount) {
     printf("\n--- MUNICIPAL ASSET REGISTER REPORT ---\n");
     if (assetCount == 0) {
         printf("No municipal assets found.\n");
@@ -192,6 +184,6 @@ void generateAssetReport() {
     printf("%-10s %-20s %-20s N$%-15.2f\n", "ID", "Asset Name", "Type", "Value");
     printf("----------------------------------------------------------------------------------\n");
     for (int i = 0; i < assetCount; i++) {
-        printf("%-10s %-20s %-20s N$%-15.2f\n", assetIDs[i], assetNames[i], assetTypes[i], assetValues[i]);
+        printf("%-10s %-20s %-20s N$%-15.2f\n", assets[i].id, assets[i].name, assets[i].type, assets[i].value);
     }
 }

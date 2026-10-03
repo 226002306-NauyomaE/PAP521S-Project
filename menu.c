@@ -2,7 +2,7 @@
 #include "menu.h"
 #include "employees.h"
 #include "budget.h"
-#include "suppliers.h"
+#include "assets.h"
 #include "reports.h"
 
 void displayMenu() {
@@ -34,7 +34,7 @@ int enterChoice(void) {
         return choice;
     }
 }
-void processChoice(int choice, Supplier suppliers[], int *supplierCount) {
+void processChoice(int choice, Supplier suppliers[], int *supplierCount, Asset assets[], int *assetCount) {
     switch (choice) {
         case 1:
             employeeMenu();
@@ -46,10 +46,10 @@ void processChoice(int choice, Supplier suppliers[], int *supplierCount) {
             supplierMenu(suppliers, supplierCount);
             break;
         case 4:
-            printf("\n[INFO] Asset Management feature is under development. Please check back later.\n");
+            assetMenu(assets, assetCount);
             break;
         case 5:
-            displayReportsMenu(suppliers, supplierCount);
+            displayReportsMenu(suppliers, *supplierCount, assets, *assetCount);
             break;
         case 6:
             printf("\nThank you for using the Municipal Financial Management System. Goodbye!\n");
@@ -62,10 +62,11 @@ void runMenu(void) {
     int choice;
     Supplier suppliers[MAX_SUPPLIERS];
     int supplierCount = 0;
-
+    Asset assets[50];
+    int assetCount = 0;
     do {
         displayMenu();
         choice = enterChoice();
-        
+        processChoice(choice, suppliers, &supplierCount, assets, &assetCount);
     } while (choice != 6);
 }
