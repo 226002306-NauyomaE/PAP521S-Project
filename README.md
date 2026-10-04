@@ -20,7 +20,7 @@ The system was developed using ANSI C (C99) and demonstrates programming concept
 - **Main Menu:** Provides central navigation to all system modules and the exit option.
 - **Employee Management:** Allows users to add, display, search and manage employee information, including salary calculations.
 - **Budget Management:** Allows users to add departmental budgets and expenditure, calculate remaining budget, and identify departments that exceed their allocated budget.
-- **Supplier Management:** Allows users to add, dispaly and search supplier information, as well as perform supplier-related string operations.
+- **Supplier Management:** Allows users to add, display and search supplier information, as well as perform supplier-related string operations.
 - **Asset Management:** Provides an asset register for adding, displaying and searching municipal assets.
 - **Reports:** Generates basic reports for employee, budget, supplier and asset information.
 - **Input Validation:** Handles invalid menu choices and validates relevant user input.
