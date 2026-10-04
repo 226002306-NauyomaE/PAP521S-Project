@@ -17,7 +17,7 @@ void addSupplier(Supplier suppliers[], int *count) {
     
     printf("Enter Supplier ID: ");
     fgets(temp.supplierID, sizeof(temp.supplierID), stdin);
-    temp.supplierID[strcspn(temp.supplierID, "\n")] = '\0'; // Week 7 approach for newline
+    temp.supplierID[strcspn(temp.supplierID, "\n")] = '\0';
 
     
     printf("Enter Supplier Name: ");
