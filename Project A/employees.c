@@ -62,14 +62,17 @@ void addEmployee(void)
 
     strcpy(empNames[employeeCount], firstName);
     strcat(empNames[employeeCount], " ");
-    strcat(empNames[employeeCount], surname);
+    strcat(empNames[employeeCount], surname);   
+    toUpperCase(empNames[employeeCount]);
 
     printf("Full Name: %s\n", empNames[employeeCount]);
     printf("Department: ");
     scanf("%29s", empDepartments[employeeCount]);
+    toUpperCase(empDepartments[employeeCount]);
 
     printf("Position: ");
     scanf("%29s", empPositions[employeeCount]);
+    toUpperCase(empPositions[employeeCount]);
 
     printf("Department: %s\n", empDepartments[employeeCount]);
     printf("Position: %s\n", empPositions[employeeCount]);
@@ -196,7 +199,11 @@ void searchEmployeeByName(void)
 
     for (int i = 0; i < employeeCount; i++)
     {
-        if (strstr(empNames[i], searchName) != NULL)
+    char nameCopy[NAME_LEN];              // a temporary copy
+    strcpy(nameCopy, empNames[i]);        // copy the stored name
+    toUpperCase(nameCopy);                // make the copy uppercase
+
+    if (strstr(nameCopy, searchName) != NULL)    // compare the two uppercase versions
         {
             double gross = calculateGross(empBasic[i], empHousing[i], empTransport[i]);
             double tax = calculateTax(gross);
