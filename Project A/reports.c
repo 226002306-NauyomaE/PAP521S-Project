@@ -181,9 +181,9 @@ void generateAssetReport(const Asset assets[], int assetCount) {
         printf("No municipal assets found.\n");
         return;
     }
-    printf("%-10s %-20s %-20s N$%-15.2f\n", "ID", "Asset Name", "Type", "Value");
+    printf("%-10s %-20s %-20s N$%-15s\n", "ID", "Asset Name", "Type", "Value");
     printf("----------------------------------------------------------------------------------\n");
     for (int i = 0; i < assetCount; i++) {
-        printf("%-10s %-20s %-20s N$%-15.2f\n", assets[i].id, assets[i].name, assets[i].type, assets[i].value);
+       printf("%-10d %-20s %-20s N$%-15.2f\n", assets[i].id, assets[i].name, assets[i].type, assets[i].value);
     }
 }
